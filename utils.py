@@ -11,7 +11,9 @@ import cv2
 import math
 import os
 import random
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 class Logger(object):
   def __init__(self, log_dir):
@@ -69,6 +71,8 @@ def vis(poses, outdir, aud=None):
         cv2.circle(canvas, (30, 30), 20, (0,0,255), -1)
         #canvas = cv2.copyMakeBorder(canvas,10,10,10,10,cv2.BORDER_CONSTANT,value=[255,0,0])
     cv2.imwrite(os.path.join(outdir, 'frame{0:03d}.png'.format(t)),canvas)
+    #steph
+    cv2.imshow('steph is great', canvas)
 
 def vis2(poses, outdir, fibeat):
   colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
@@ -122,6 +126,8 @@ def vis2(poses, outdir, fibeat):
       cv2.fillConvexPoly(cur_canvas, polygon, colors[i])
       canvas = cv2.addWeighted(canvas, 0.4, cur_canvas, 0.6, 0)
     cv2.imwrite(os.path.join(outdir, 'frame{0:03d}.png'.format(t)),canvas)
+    #steph
+    cv2.imshow('steph is great', canvas)
 
 def vis_single(pose, outfile):
   colors = [[255, 0, 0], [255, 85, 0], [255, 170, 0], [255, 255, 0], [170, 255, 0], [85, 255, 0], [0, 255, 0], \
@@ -165,3 +171,5 @@ def vis_single(pose, outfile):
       cv2.fillConvexPoly(cur_canvas, polygon, colors[i])
       canvas = cv2.addWeighted(canvas, 0.4, cur_canvas, 0.6, 0)
     cv2.imwrite(outfile,canvas)
+    #steph
+    cv2.imshow('steph is great', canvas)
