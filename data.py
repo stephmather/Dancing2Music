@@ -87,6 +87,7 @@ class PoseDataset(torch.utils.data.Dataset):
     xjit = np.random.uniform(low=-50, high=50)
     yjit = np.random.uniform(low=-20, high=20)
     poses = orig_poses.copy()
+    #print('orig_poses', poses.shape)
     poses[:,:,0] += xjit
     poses[:,:,1] += yjit
     xjit = np.random.uniform(low=-50, high=50)
@@ -94,12 +95,23 @@ class PoseDataset(torch.utils.data.Dataset):
     poses2 = orig_poses.copy()
     poses2[:,:,0] += xjit
     poses2[:,:,1] += yjit
+    
+    #SM
+    #print('poses[:,:,1] before reshape',poses[:,:,1].shape)
+    #utils.vis(poses[1,:,:,1], 'outfile_sm_poses_0.jpg', aud=None)
+    #utils.vis(poses[:,:,1], 'outfile_sm_poses_1.jpg', aud=None)
+    #print('poses2 before reshape',poses2.shape)
+    #utils.vis(poses2[:,:,0], 'outfile_sm_poses2_0.jpg', aud=None)
+    #utils.vis(poses2[:,:,1], 'outfile_sm_poses2_1.jpg', aud=None)
 
     poses = poses.reshape(poses.shape[0], poses.shape[1]*poses.shape[2])
     poses2 = poses2.reshape(poses2.shape[0], poses2.shape[1]*poses2.shape[2])
     for i in range(poses.shape[0]):
       poses[i] = (poses[i]-self.mean_pose)/self.std_pose
       poses2[i] = (poses2[i]-self.mean_pose)/self.std_pose
+    #steph
+    #print('poses1 after reshape',poses.shape)
+    
 
     return torch.Tensor(poses), torch.Tensor(poses2)
 
